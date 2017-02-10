@@ -1,0 +1,396 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>reveal.js</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                <h1>Building a better Element</h1>
+                <h4>A PostBeyond tech talk</h4>
+            </section>
+            <section>
+                <h2>What's Up?</h2>
+                <ul>
+                    <li class="fragment">Structuring a front-end application</li>
+                    <li class="fragment">Comparing Applications: Client & Element</li>
+                    <li class="fragment">Unit Testing</li>
+                    <li class="fragment">Internal Style Guide</li>
+                </ul>
+            </section>
+            <section class="stacked">
+                <section data-background="http://i.giphy.com/UMzcBu8CHCGHK.gif">
+                    <h2>Building up your front end</h2>
+                </section>
+                <section>
+                    <h2>Step one: Everything is a component</h2>
+                </section>
+                <section>
+                    <h2>But why?</h2>
+                    <ul>
+                        <li class="fragment">Reusable</li>
+                        <li class="fragment">Testable</li>
+                        <li class="fragment">Clearly separated interests
+                            <ul>
+                                <li class="fragment">Everything has it's job</li>
+                            </ul>
+                        </li>
+                        <li class="fragment">Easier to organize code</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Your world in components</h2>
+                    <div class="stage">
+                        <img style="height: 500px;" src="img/component_example_clear.png" />
+                    </div>
+                </section>
+                <section>
+                    <h2>Your world in components</h2>
+                    <div class="stage">
+                        <img style="height: 500px;" src="img/component_example.png" />
+                    </div>
+                </section>
+            </section>
+            <section class="stacked">
+                <section>
+                    <h2>But what IS a component?</h2>
+                    <blockquote>A part or element of a larger whole</blockquote>
+                </section>
+                <section>
+                    <h2>Essentially</h2>
+                    <pre class="fragment">
+						<code class="hljs" data-trim contenteditable>
+//This
+&lt;a href="postbeyond.com">Anchor</a>
+						</code>
+					</pre>
+                    <pre class="fragment">
+						<code class="hljs" data-trim contenteditable>
+//Or This
+&lt;video src="img/postbeyond.com/amazingVideo"></video>
+						</code>
+					</pre>
+                    <pre class="fragment">
+						<code class="hljs" data-trim contenteditable>
+//Or Even This
+&lt;input type="number"/>
+						</code>
+					</pre>
+                </section>
+                <section>
+                    <h2>Basically</h2>
+                    <p>A reusable piece of markup that's has code and styling attached to it to perform</p>
+                </section>
+                <section>
+                    <h2>But more practically . . .</h2>
+                    <div class="stage">
+                        <img style="height: 500px;" src="img/pb-components.png" />
+                    </div>
+                </section>
+                <section>
+                    <h2>Even MORE practically</h2>
+                    <p>Relative SuedoCode (but not very)</p>
+                    <pre>
+						<code class="hljs" data-trim contenteditable>
+<postbeyond>
+	<topbar>
+		//Which contains
+		<menu></menu>
+		<category-selector></category-selector>
+	</topbar>
+	<post-list>
+		//Which contains
+		<post></post>
+		<post></post>
+		<post></post>
+		<post></post>
+	</post-list>
+</postbeyond>
+						</code>
+					</pre>
+                </section>
+            </section>
+            <section class="stacked">
+                <section>
+                    <h4>Components of a PB Component</h4>
+                    <ul>
+                        <li class="fragment">Markup (a template)
+                            <ul>
+                                <li class="fragment">
+                                    post.tmpl.html
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="fragment">Associated code (a controller)
+                            <ul>
+                                <li class="fragment">
+                                    post.js
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="fragment">Associated styling (css)
+                            <ul>
+                                <li class="fragment">
+                                    post.less
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="fragment">Unit Test
+                            <ul>
+                                <li class="fragment">
+                                    post.test.js
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="fragment">Functional Test (Protractor test)
+                            <ul>
+                                <li class="fragment">
+                                    post.e2e.test.js
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>In Practice</h2>
+                    <div class="stage">
+                        <img style="height: 500px;" src="img/element-folders.png" />
+                    </div>
+                </section>
+                <section>
+                    <h2>Which brings us to . . .</h2>
+                </section>
+            </section>
+            <section class="stacked">
+                <section>
+                    <h2>Client vs Element</h2>
+                    <ul>
+                        <li class="fragment">Controllers vs Directives</li>
+                        <li class="fragment">Giant multipurpose files vs Contained Focus</li>
+                        <li class="fragment">Universal Stylesheets vs </li>
+                        <li class="fragment">and . . .</li>
+                    </ul>
+
+                </section>
+                <section data-background="http://i.giphy.com/5YF9dwGZ29rVe.gif">
+                    <h2>Unit Testing?</h2>
+                </section>
+                <section>
+                    <h2>Client Folder Structure</h2>
+                    <div class="stage">
+                        <img style="height: 500px;" src="img/client1.png" />
+                    </div>
+                </section>
+                <section>
+                    <h2>And Still . . .</h2>
+                    <div class="stage">
+                        <img style="height: 500px;" src="img/client2.png" />
+                    </div>
+                </section>
+                <section>
+                    <h2>Element last week</h2>
+                    <div class="stage">
+                        <img style="height: 500px;" src="img/element1.png" />
+                    </div>
+                </section>
+                <section>
+                    <h2>Now</h2>
+                    <div class="stage">
+                        <img style="height: 500px;" src="img/element2.png" />
+                    </div>
+                </section>
+                <section data-background="http://www.reactiongifs.com/wp-content/uploads/2013/10/woah.gif">
+                </section>
+            </section>
+            <section class="stacked">
+                <section>
+                    <h2>Testing the Units</h2>
+                    <ul>
+                        <li class="fragment">Karma & Jasmine</li>
+                        <li class="fragment">PhantomJS</li>
+                        <li class="fragment">Istanbul</li>
+                        <li class="fragment">Protractor</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Karma & Jasmine</h2>
+                    <pre>
+						<code>
+beforeEach(
+    inject(function($templateCache, _$compile_, _$rootScope_, $httpBackend) {
+      $compile = _$compile_;
+      $scope = _$rootScope_;
+      backend = $httpBackend;
+
+      $httpBackend.when("GET", "http://app.postbeyond.dev/api/v1/category").respond(mockResults);
+      $scope.stubFunction = stubFunction;
+      element = $compile('<category-select on-category-change="stubFunction"></category-select>')($scope);
+
+      element.scope().$digest();
+
+      isolatedScope = element.isolateScope();
+      isolatedScope.$apply();
+      $httpBackend.flush();
+    })
+  )
+
+  afterEach(function() {
+    backend.verifyNoOutstandingExpectation();
+    backend.verifyNoOutstandingRequest();
+  });
+
+  it("should init correct values", function() {
+    expect(isolatedScope.categoryChunkList.length).toBe(2);
+    expect(isolatedScope.categoryChunkList[0][0].name).toBe('All Categories');
+    expect(isolatedScope.currentCategory.name).toBe('All Categories');
+  });
+
+  it("should change active category", function() {
+    isolatedScope.selectCategory({ id: 50, name: "Not a Real Category" });
+    expect(isolatedScope.currentCategory.id).toBe(50);
+  });					
+						</code>
+					</pre>
+                </section>
+                <section>
+                    <h2>Protractor</h2>
+                    <pre>
+						<code>
+var auth;
+
+auth = require("../../../auth.e2e.spec.js");
+
+describe('PostBeyond leaderboard page', function() {
+  beforeAll(function() {
+    auth.login();
+  });
+
+  it('should run a test', function() {
+    expect(1 + 1).toBe(2);
+  });
+
+  it('should bring up leaderboard', function() {
+    element(By.css('.ui.secondary.menu.controls .item')).click().then(function() {
+      expect(browser.getCurrentUrl()).toEqual('http://app.postbeyond.dev/atom/#/leaderboard');
+    });
+  });
+  
+  afterAll(function() {
+    auth.logout();
+  });
+});							
+						</code>
+					</pre>
+                </section>
+                <section>
+                    <h2>Karma & Jasmine</h2>
+                    <pre>
+						<code>
+[19:18:13] Using gulpfile ~/Documents/postbeyond-element/Gulpfile.js
+[19:18:13] Starting 'unit'...
+09 02 2017 19:18:14.421:INFO [karma]: Karma v1.3.0 server started at http://localhost:9876/
+09 02 2017 19:18:14.423:INFO [launcher]: Launching browser PhantomJS with unlimited concurrency
+09 02 2017 19:18:14.430:INFO [launcher]: Starting browser PhantomJS
+09 02 2017 19:18:15.455:INFO [PhantomJS 2.1.1 (Mac OS X 0.0.0)]: Connected on socket /#dIE3XUi1N6gE_EZBAAAA with id 64267632
+PhantomJS 2.1.1 (Mac OS X 0.0.0): Executed 6 of 6 SUCCESS (0.02 secs / 0.122 secs)
+						</code>
+                    </pre>
+                </section>
+                <section>
+                    <h2>Istanbul</h2>
+                    <h1>DEMO!</h1>
+                </section>
+            </section>
+            <section class="stacked">
+                <section>
+                    <h1>Style Guide</h1>
+                    <ul>
+                        <li class="fragment">Strongly fuelled by Hunter's opinions/experience</li>
+                        <li class="fragment">Many of these practices are industry standard</li>
+                        <li class="fragment">Will help us stay aligned</li>
+                        <li class="fragment">Will continue to grow</li>
+                    </ul>
+                </section>
+                <section>
+                    <h1>Find it!</h1>
+                    <p>On confluence under tech documents</p>
+                    <p class="fragment">
+                        Also find the less style guide that @victorMak has goin' on
+                    </p>
+                </section>
+            </section>
+            <section>
+                <img width="100%" height="100%" data-src="http://i1.wp.com/i286.photobucket.com/albums/ll117/humaicons/GIFs/tonystarkithinkididokay.gif?resize=500%2C282"> Questions?
+            </section>
+        </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <!--<script src="js/socket.io.js"></script>-->
+    <script src="js/reveal.js"></script>
+    <!--<script src="js/smtt.js"></script>-->
+
+    <script>
+        // More info https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            history: true,
+            multiplex: {
+                // Example values. To generate your own, see the socket.io server instructions.
+                secret: '14867064352744498422', // Obtained from the socket.io server. Gives this (the master) control of the presentation
+                id: '135dd45bcb9a355b', // Obtained from socket.io server
+                url: 'https://reveal-js-multiplex-ccjbegmaii.now.sh' // Location of your socket.io server
+            },
+
+            // Don't forget to add the dependencies
+            dependencies: [{
+                    src: 'https://cdn.socket.io/socket.io-1.3.5.js',
+                    async: true
+                }, {
+                    src: 'plugin/multiplex/master.js',
+                    async: true
+                }, {
+                    src: 'plugin/multiplex/client.js',
+                    async: true
+                },
+                // More info https://github.com/hakimel/reveal.js#dependencies
+                {
+                    src: 'plugin/markdown/marked.js'
+                }, {
+                    src: 'plugin/markdown/markdown.js'
+                }, {
+                    src: 'plugin/notes/notes.js',
+                    async: true
+                }, {
+                    src: 'plugin/highlight/highlight.js',
+                    async: true,
+                    callback: function() {
+                        hljs.initHighlightingOnLoad();
+                    }
+                }
+            ]
+        });
+    </script>
+</body>
+
+</html>
